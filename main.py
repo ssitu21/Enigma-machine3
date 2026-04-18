@@ -93,6 +93,13 @@ def main():
     
     choice = input("Encrypt or decrypt? (e/d): ").lower()
     
+    message = input("Enter your message: ")
+    message = format_text(message)
+    
+    if not message:
+        print("Error: Message cannot be empty")
+        return
+    
     if choice == 'e':
         print("Encryption selected")
     elif choice == 'd':
