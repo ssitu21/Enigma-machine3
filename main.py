@@ -90,7 +90,15 @@ def main():
     print("===========================")
     print(" ENIGMA MACHINE SIMULATOR ")
     print("===========================")
-
+    
+    choice = input("Encrypt or decrypt? (e/d): ").lower()
+    
+    if choice == 'e':
+        print("Encryption selected")
+    elif choice == 'd':
+        print("Decryption selected")
+    else:
+        print("Invalid choice")
 
 # Run the program
 if __name__ == "__main__":
