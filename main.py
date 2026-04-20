@@ -91,33 +91,51 @@ def main():
     print(" ENIGMA MACHINE SIMULATOR ")
     print("===========================")
     
-    choice = input("Encrypt or decrypt? (e/d): ").lower()
-    
-    message = input("Enter your message: ")
-    message = format_text(message)
-    
-    if not message:
-        print("Error: Message cannot be empty")
-        return
-    
-    shift_input = input("Enter shift (1-25): ")
-    
-    if not shift_input.isdigit():
-        print("Error: Shift must be a number")
-        return
-    
-    shift = int(shift_input)
-    
-    if shift < 1 or shift > 25:
-        print("Error: Shift must be between 1 and 25")
-        return
-    
-    if choice == 'e':
-        print("Encryption selected")
-    elif choice == 'd':
-        print("Decryption selected")
-    else:
-        print("Invalid choice")
+    while True:
+        print("\n-----------------------------")
+        
+        choice = input("Encrypt or decrypt? (e/d): ").lower()
+        
+        message = input("Enter your message: ")
+        message = format_text(message)
+        
+        if not message:
+            print("Error: Message cannot be empty")
+            continue
+        
+        shift_input = input("Enter shift (1-25): ")
+        
+        if not shift_input.isdigit():
+            print("Error: Shift must be a number")
+            continue
+        
+        shift = int(shift_input)
+        
+        if shift < 1 or shift > 25:
+            print("Error: Shift must be between 1 and 25")
+            continue
+        
+        if choice == 'e':
+            result = encrypt(message, shift)
+  
+            print("ENCRYPTION RESULT")
+            print("Original: " + message)
+            print("Encrypted: " + result)
+         
+        elif choice == 'd':
+            result = decrypt(message, shift)
+   
+            print("DECRYPTION RESULT")
+            print("Original: " + message)
+            print("Decrypted: " + result)
+        else:
+            print("Invalid choice")
+            continue
+        
+        again = input("\nRun again? (yes/no): ").lower()
+        if again != 'yes' and again != 'y':
+            print("\nGoodbye")
+            break
 
 # Run the program
 if __name__ == "__main__":
