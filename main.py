@@ -92,7 +92,7 @@ def main():
     print("===========================")
     
     while True:
-        print("\n-----------------------------")
+       
         
         choice = input("Encrypt or decrypt? (e/d): ").lower()
         
@@ -121,13 +121,27 @@ def main():
             print("ENCRYPTION RESULT")
             print("Original: " + message)
             print("Encrypted: " + result)
+            
+            # Round trip test
+            test_back = decrypt(result, shift)
+            print("\nRound trip test:")
+            print("Decrypting back gives: " + test_back)
+            if test_back == message:
+                print("Success: Cipher works correctly")
          
-        elif choice == 'd':
+        elif choice == 'd': 
             result = decrypt(message, shift)
    
             print("DECRYPTION RESULT")
             print("Original: " + message)
             print("Decrypted: " + result)
+            
+            # Round trip test
+            test_back = encrypt(result, shift)
+            print("\nRound trip test:")
+            print("Encrypting back gives: " + test_back)
+            if test_back == message:
+                print("Success: Cipher works correctly")
         else:
             print("Invalid choice")
             continue
