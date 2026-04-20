@@ -100,6 +100,18 @@ def main():
         print("Error: Message cannot be empty")
         return
     
+    shift_input = input("Enter shift (1-25): ")
+    
+    if not shift_input.isdigit():
+        print("Error: Shift must be a number")
+        return
+    
+    shift = int(shift_input)
+    
+    if shift < 1 or shift > 25:
+        print("Error: Shift must be between 1 and 25")
+        return
+    
     if choice == 'e':
         print("Encryption selected")
     elif choice == 'd':
