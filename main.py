@@ -1,37 +1,67 @@
-# ============================================
-# ENIGMA MACHINE PROJECT (CAESAR CIPHER)
-# PSEUDOCODE:
-# 1. Create format_text() to remove whitespace using .strip()
-# 2. Create create_cipher_dict(shift):
-#    - Loop i from 0 to 25 for lowercase letters
-#    - Map original to encrypted using (i + shift) % 26
-#    - Map encrypted back to original for decrypt
-#    - Repeat for uppercase letters
-#    - Return both dictionaries
-# 3. Create encrypt_with_dict(message, shift):
-#    - Call create_cipher_dict to get encrypt_dict
-#    - Loop through each character in message
-#    - If char is in dict, replace with encrypted version
-#    - If not (spaces/punctuation), keep unchanged
-#    - Join and return result
-# 4. Create decrypt_with_dict(message, shift):
-#    - Same as encrypt but using decrypt_dict
-# 5. Main program:
-#    - Print welcome message
-#    -
-#  Loop until user quits
-#    - Ask for encrypt/decrypt choice (e/d)
-#    - Get message and strip whitespace
-#    - Get shift number (1-25 only)
-#    - Validate shift is digit and between 1-25
-#    - Call appropriate function based on choice
-#    - Print formatted result
-#    - Ask user if they want to run again
-# ============================================
-
-
 def format_text(text):
     return text.strip()
+
+
+# Dictonaryd
+
+
+def create_cipher_dict(shift):
+    """Create dictionaries for encryption and decryption"""
+    encrypt_dict = {}
+    decrypt_dict = {}
+    
+    # Lowercase letters (a-z)
+    for i in range(26):
+        original = chr(ord('a') + i)
+        encrypted = chr(ord('a') + ((i + shift) % 26))
+        encrypt_dict[original] = encrypted
+        decrypt_dict[encrypted] = original
+    
+    # Uppercase letters (A-Z)
+    for i in range(26):
+        original = chr(ord('A') + i)
+        encrypted = chr(ord('A') + ((i + shift) % 26))
+        encrypt_dict[original] = encrypted
+        decrypt_dict[encrypted] = original
+    
+    return encrypt_dict, decrypt_dict
+
+
+def encrypt_with_dict(message, shift):
+    """Encrypt a message using dictionary lookup"""
+    encrypt_dict, _ = create_cipher_dict(shift)
+    result = []
+    
+    # Loop through each character
+    for char in message:
+        # If character is in dictionary (a letter), replace it
+        if char in encrypt_dict:
+            result.append(encrypt_dict[char])
+        else:
+            # Keep spaces, punctuation, numbers unchanged
+            result.append(char)
+    
+    return "".join(result)
+
+
+def decrypt_with_dict(message, shift):
+    """Decrypt a message using dictionary lookup"""
+    _, decrypt_dict = create_cipher_dict(shift)
+    result = []
+    
+    # Loop through each character
+    for char in message:
+        # If character is in dictionary (a lettder), replace it
+        if char in decrypt_dict:
+            result.append(decrypt_dict[char])
+        else:
+            # Keep spaces, punctuation, numbers unchanged
+            result.append(char)
+    
+    return "".join(result)
+
+
+
 
 # Function to encrypt message
 def encrypt(message_list, shift):
@@ -59,7 +89,8 @@ def encrypt(message_list, shift):
 
     return "".join(result)
 
-# Function to decrypt message
+
+# Function to decrypt message 
 def decrypt(message_list, shift):
     result = []
 
@@ -85,7 +116,9 @@ def decrypt(message_list, shift):
 
     return "".join(result)
 
-# Main program
+
+# MAIN PROGRAM
+
 def main():
     print("===========================")
     print(" ENIGMA MACHINE SIMULATOR ")
@@ -115,8 +148,12 @@ def main():
             print("Error: Shift must be between 1 and 25")
             continue
         
+
+
+        
         if choice == 'e':
-            result = encrypt(message, shift)
+            
+            result = encrypt_with_dict(message, shift)
             
             print("\n=======================================")
             print("ENCRYPTION RESULT")
@@ -125,15 +162,16 @@ def main():
             print("Encrypted: " + result)
             print("=======================================")
             
-            # Round trip test
-            test_back = decrypt(result, shift)
+            # Round trip test 
+            test_back = decrypt_with_dict(result, shift)
             print("\nRound trip test:")
             print("Decrypting back gives: " + test_back)
             if test_back == message:
                 print("Success: Cipher works correctly")
          
         elif choice == 'd': 
-            result = decrypt(message, shift)
+            # 
+            result = decrypt_with_dict(message, shift)
             
             print("\n=======================================")
             print("DECRYPTION RESULT")
@@ -142,8 +180,8 @@ def main():
             print("Decrypted: " + result)
             print("=======================================")
             
-            # Round trip test
-            test_back = encrypt(result, shift)
+            # Round trip test 
+            test_back = encrypt_with_dict(result, shift)
             print("\nRound trip test:")
             print("Encrypting back gives: " + test_back)
             if test_back == message:
@@ -156,6 +194,7 @@ def main():
         if again != 'yes' and again != 'y':
             print("\nGoodbye")
             break
+
 
 # Run the program
 if __name__ == "__main__":
