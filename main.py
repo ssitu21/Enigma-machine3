@@ -148,9 +148,6 @@ def main():
             print("Error: Shift must be between 1 and 25")
             continue
         
-
-
-        
         if choice == 'e':
             
             result = encrypt_with_dict(message, shift)
@@ -161,16 +158,8 @@ def main():
             print("Original:  " + message)
             print("Encrypted: " + result)
             print("=======================================")
-            
-            # Round trip test 
-            test_back = decrypt_with_dict(result, shift)
-            print("\nRound trip test:")
-            print("Decrypting back gives: " + test_back)
-            if test_back == message:
-                print("Success: Cipher works correctly")
          
         elif choice == 'd': 
-            # 
             result = decrypt_with_dict(message, shift)
             
             print("\n=======================================")
@@ -179,13 +168,6 @@ def main():
             print("Original:  " + message)
             print("Decrypted: " + result)
             print("=======================================")
-            
-            # Round trip test 
-            test_back = encrypt_with_dict(result, shift)
-            print("\nRound trip test:")
-            print("Encrypting back gives: " + test_back)
-            if test_back == message:
-                print("Success: Cipher works correctly")
         else:
             print("Invalid choice")
             continue
